@@ -71,3 +71,8 @@ h3 {
   color: #fff;
   font-weight: 700;
 }
+
+.meme--img {
+  margin-top: 2.2rem;
+  width: 100%;
+}
