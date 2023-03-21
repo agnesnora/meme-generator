@@ -1,5 +1,5 @@
 import MemesData from "../MemesData";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 /**
  * Challenge: Update our state to save the meme-related
@@ -25,12 +25,17 @@ export default function Meme() {
     randomImage: "http://i.imgflip.com/1bij.jpg",
   });
 
-  const [allMemeImages, setAllMemeImages] = useState(MemesData);
+  const [allMeme, setAllMeme] = useState(MemesData);
+
+  useEffect(function () {
+    fetch("https://api.imgflip.com/get_memes")
+      .then((res) => res.json())
+      .then((data) => setAllMeme(data.data.memes));
+  });
 
   function getMemeImage() {
-    const memeArray = allMemeImages.data.memes;
-    const randomNumber = Math.floor(Math.random() * memeArray.length);
-    const url = memeArray[randomNumber].url;
+    const randomNumber = Math.floor(Math.random() * allMeme.length);
+    const url = allMeme[randomNumber].url;
     console.log(url);
     setMeme((prevMeme) => {
       return {
